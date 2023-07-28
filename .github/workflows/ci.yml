@@ -1,0 +1,20 @@
+
+name: CI workflow
+
+on: pull_request
+
+jobs:
+    ci:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout repository
+            # Usamos la acción de git predeterminada checkout para descargar nuestro código en la máquina
+              uses: actions/checkout@v3
+
+            - name: Install
+              # Para definir comandos propios se usa run (npm ci "clean install" para copiar las misma versión de librerías que tenemos en local)
+              run: npm ci
+
+            - name: Tests
+              # No se usa test:watch porque si no nos quedamos sin los 2000 minutos que nos da github, "test" para que solo se ejecute una vez
+              run: npm test
